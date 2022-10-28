@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import BookSelection from './BookSelection';
 import { TVolumeInfo } from './types';
 
 const App = () => {
@@ -49,23 +51,38 @@ const App = () => {
   }, [])
   console.log({ data })
   return (
-    <div className="App" >
-      <h1>Welcome to Colibri Project</h1>
-      <h3>Our book selection</h3>
-      <div>
-        {data?.map((bookInfo, i) => {
+    <Section className="App" >
+      <AppTitle>Welcome to Colibri Project</AppTitle>
+      <AppSubtitle>Our book selection</AppSubtitle>
+      <BooksContainer>
+        {data?.map((bookInfo: TVolumeInfo, i: Number) => {
           return (
             <div key={`book-${i}`}>
-              <a href={bookInfo.previewLink} target="_blank">
-                <h4>{bookInfo.title}</h4>
-                <p>{bookInfo?.authors}</p>
-                <img src={bookInfo.imageLinks.thumbnail} alt="book_thumbnail" />
-              </a>
-            </div>)
-        })}
-      </div>
-    </div>
+              <BookSelection {...bookInfo} />
+            </div>
+          )
+        })
+        }
+      </BooksContainer>
+    </Section>
   );
 }
 
 export default App;
+const Section = styled.div`
+  text-align: center;
+`
+const BooksContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  margin: 150px auto 0;
+  max-width: 1000px;
+`
+const AppTitle = styled.h1`
+  margin-bottom: 40px;
+`
+const AppSubtitle = styled.h3`
+  color: #074b86;
+  font-size: 25px;
+`
