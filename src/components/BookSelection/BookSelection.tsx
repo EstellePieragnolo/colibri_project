@@ -1,4 +1,4 @@
-import { TVolumeInfo } from "../types"
+import { TVolumeInfo } from "../../types"
 
 const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend TVolume with className type
   const { previewLink, title, authors, imageLinks, className } = book

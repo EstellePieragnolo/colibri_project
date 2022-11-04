@@ -1,18 +1,34 @@
 import styled from 'styled-components';
-import BookSelection from './BookSelection';
-import homeData from './data/homeData';
+import BookSelection from './components/BookSelection';
 import { TVolumeInfo } from './types';
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
+import { getBookSelection } from './components/BookSelection/BookSelectionSlice';
+import { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 
 const App = () => {
-  const category = 'middle-ages'
-  const data = homeData(category)
+  const dispatch = useAppDispatch()
+
+  const initApp = useCallback(async () => {
+    dispatch(getBookSelection())
+  },
+    [dispatch],
+  )
+  useEffect(() => {
+    initApp()
+    console.log('initApp')
+  }, []);
+
+  const { books } = useAppSelector(state => state.bookSelection)
+  console.log({ books })
   return (
     <Section className="App" >
       <AppTitle>Welcome to Colibri Project</AppTitle>
       <AppSubtitle>Our book selection</AppSubtitle>
-      <CategoryTitle>{category}</CategoryTitle>
+      <CategoryTitle>{"Medieval"}</CategoryTitle>
       <BooksContainer>
-        {data?.map((bookInfo: TVolumeInfo, i: Number) => {
+        {books?.map((bookInfo: TVolumeInfo, i: Number) => {
           return (
             <div key={`book-${i}`}>
               <BookSelection {...bookInfo} />
@@ -25,7 +41,14 @@ const App = () => {
   );
 }
 
-export default App;
+const AppWrapper = () => (
+  <Provider store={store} >
+    <App />
+  </Provider>
+)
+
+export default AppWrapper;
+
 const Section = styled.div`
   text-align: center;
 `
