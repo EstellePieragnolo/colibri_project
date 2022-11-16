@@ -20,7 +20,6 @@ export const getBookSelection = createAsyncThunk<TVolumeInfo[] | null>(
   async (_, thunkAPI) => {
     try {
       const response = await homeData("medieval")
-      console.log({response})
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
