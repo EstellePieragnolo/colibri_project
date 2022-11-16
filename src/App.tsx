@@ -17,11 +17,9 @@ const App = () => {
   )
   useEffect(() => {
     initApp()
-    console.log('initApp')
   }, []);
 
   const { books } = useAppSelector(state => state.bookSelection)
-  console.log({ books })
   return (
     <Section className="App" >
       <AppTitle>Welcome to Colibri Project</AppTitle>
