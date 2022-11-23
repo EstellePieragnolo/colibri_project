@@ -13,9 +13,8 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addToWishlist: (state, action: {payload: string}) => {
-      // state.wishlist?.push({ ...action.payload.id })
       let updatedWishlist = [...state.wishlist]
-      if (!state.wishlist.some((wishlistItem) => { //to remove use findTheIndex() instead of some() and use splice() to remove smthg from the array
+      if (!state.wishlist.some((wishlistItem) => {
         return wishlistItem.id === action.payload
       })) {
         updatedWishlist = [...state.wishlist, {id:action.payload}]
@@ -57,8 +56,6 @@ const wishlistSlice = createSlice({
       }
     }
   }
-
-  //add toggle reducer
 })
 
 export const wishlistReducer = wishlistSlice.reducer
