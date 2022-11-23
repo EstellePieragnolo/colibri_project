@@ -1,25 +1,12 @@
-import { useCallback } from "react"
 import { useDispatch } from "react-redux"
-import { useAppSelector } from "../../redux/hooks"
-import { addToWishlist, removeFromWishlist } from "../Wishlist/WishlistSlice"
+import { TBookId } from "../../types"
+import { toggleWishlist } from "../Wishlist/WishlistSlice"
 
-const WishlistButton = ({ id }: { id: string }) => {
-  //id:string could become a type itself
+const WishlistButton = ({ id }: TBookId) => {
   const dispatch = useDispatch()
 
-  const { wishlist } = useAppSelector(state => state.wishlist)
-  const toggleWishlist = () => {
-    if (wishlist.some((wishlistItem) => {
-      return wishlistItem.id === id
-    })) {
-      dispatch(removeFromWishlist(id))
-    } else {
-      dispatch(addToWishlist(id))
-    }
-  }
-
   return (
-    <div onClick={toggleWishlist}>
+    <div onClick={() => dispatch(toggleWishlist(id))}>
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
         viewBox="0 0 471.701 471.701" width='20px'>
         <g>

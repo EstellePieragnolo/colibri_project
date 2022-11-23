@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TBookId } from "../../types";
 
 interface WishlistState {
-  wishlist: {id:string}[]
+  wishlist: TBookId[]
 }
 const initialState:WishlistState = {
   wishlist: []
@@ -36,6 +37,24 @@ const wishlistSlice = createSlice({
         ...state,
         wishlist: cleanedWishlist
       }
+    },
+    toggleWishlist: (state, action: { payload: string }) => {
+      let updatedWishlist = [...state.wishlist]
+
+      if (!state.wishlist.some((wishlistItem) => {
+        return wishlistItem.id === action.payload
+      })) {
+        updatedWishlist = [...state.wishlist, {id:action.payload}]
+      } else {
+        const indexToRemove = updatedWishlist.findIndex((wishlistItem) => {
+          return wishlistItem.id === action.payload
+        })
+        updatedWishlist.splice(indexToRemove, 1)
+      }
+      return { //immutable way
+        ...state,
+        wishlist: updatedWishlist
+      }
     }
   }
 
@@ -45,5 +64,6 @@ const wishlistSlice = createSlice({
 export const wishlistReducer = wishlistSlice.reducer
 export const {
   addToWishlist,
-  removeFromWishlist
+  removeFromWishlist,
+  toggleWishlist
 } = wishlistSlice.actions
