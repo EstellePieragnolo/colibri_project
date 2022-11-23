@@ -19,3 +19,7 @@ export type TImageLinks = {
   smallThumbnail: string
   thumbnail: string
 }
+
+export type TBookId = {
+  id: string
+}
