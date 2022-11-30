@@ -1,6 +1,9 @@
 import { TVolumeInfo } from "../../types"
 import WishlistButton from "../WishlistButton"
 
+/**
+ * Give a book selection
+ */
 const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend TVolume with className type
   const { previewLink, title, authors, imageLinks, className, id } = book
 
