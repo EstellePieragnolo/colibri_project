@@ -1,12 +1,12 @@
-import { useDispatch } from "react-redux"
 import { TBookId } from "../../types"
-import { toggleWishlist } from "../Wishlist/WishlistSlice"
+import { useContext } from "react"
+import { WishlistContext } from "../../contexts/wishlistContext"
 
-const WishlistButton = ({ id }: TBookId) => {
-  const dispatch = useDispatch()
+const WishlistButton = ({ id }: TBookId,) => {
+  const { toggleWishlistItem } = useContext(WishlistContext)
 
   return (
-    <div onClick={() => dispatch(toggleWishlist(id))}>
+    <div onClick={() => toggleWishlistItem && toggleWishlistItem(id)}>
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
         viewBox="0 0 471.701 471.701" width='20px'>
         <g>
@@ -25,3 +25,7 @@ const WishlistButton = ({ id }: TBookId) => {
 }
 
 export default WishlistButton
+
+//having wishlist inside of context
+
+//for color: in path check if id contained into wishlist and true/false

@@ -1,11 +1,14 @@
 import styled from 'styled-components';
-import BookSelection from './components/BookSelection';
+
 import { TVolumeInfo } from './types';
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import { getBookSelection } from './components/BookSelection/BookSelectionSlice';
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
+import BookSelection from './components/BookSelection/BookSelection';
+import { WishlistContext } from './contexts/wishlistContext';
+import { toggleWishlist } from './components/Wishlist/WishlistSlice';
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -19,22 +22,29 @@ const App = () => {
     initApp()
   }, []);
 
+  const toggleWishlistItem = (id: string) => {
+    dispatch(toggleWishlist(id))
+  }
+
   const { books } = useAppSelector(state => state.bookSelection)
   return (
     <Section className="App" >
       <AppTitle>Welcome to Colibri Project</AppTitle>
       <AppSubtitle>Our book selection</AppSubtitle>
       <CategoryTitle>{"Medieval"}</CategoryTitle>
-      <BooksContainer>
-        {books?.map((bookInfo: TVolumeInfo, i: Number) => {
-          return (
-            <div key={`book-${i}`}>
-              <BookSelection {...bookInfo} />
-            </div>
-          )
-        })
-        }
-      </BooksContainer>
+      {/* TODO pass wishlist to context */}
+      <WishlistContext.Provider value={{ toggleWishlistItem: toggleWishlistItem }}>
+        <BooksContainer>
+          {books?.map((bookInfo: TVolumeInfo, i: Number) => {
+            return (
+              <div key={`book-${i}`}>
+                <BookSelection {...bookInfo} />
+              </div>
+            )
+          })
+          }
+        </BooksContainer>
+      </WishlistContext.Provider>
     </Section>
   );
 }
