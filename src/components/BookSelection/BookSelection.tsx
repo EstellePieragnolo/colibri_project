@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react"
+import { WishlistContext } from "../../contexts/wishlistContext"
 import { TVolumeInfo } from "../../types"
 import WishlistButton from "../WishlistButton"
 
@@ -6,6 +8,9 @@ import WishlistButton from "../WishlistButton"
  */
 const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend TVolume with className type
   const { previewLink, title, authors, imageLinks, className, id } = book
+  const { wishlist } = useContext(WishlistContext);
+
+  const isInWishlist = wishlist && wishlist().some(item => item === id)
 
   return (
     <div className={className}>
@@ -16,7 +21,7 @@ const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend
           <p>By {authors}</p>
         }
       </a>
-      <WishlistButton id={id} />
+      <WishlistButton id={id} isActive={isInWishlist && isInWishlist ? "#213547" : "none"} />
     </div>
   )
 }
