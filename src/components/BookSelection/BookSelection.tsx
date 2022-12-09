@@ -8,9 +8,6 @@ import WishlistButton from "../WishlistButton"
  */
 const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend TVolume with className type
   const { previewLink, title, authors, imageLinks, className, id } = book
-  const { wishlist } = useContext(WishlistContext);
-
-  const isInWishlist = wishlist && wishlist().some(item => item === id)
 
   return (
     <div className={className}>
@@ -21,7 +18,7 @@ const BookSelection = (book: TVolumeInfo & { className?: string }) => { //extend
           <p>By {authors}</p>
         }
       </a>
-      <WishlistButton id={id} isActive={isInWishlist && isInWishlist ? "#213547" : "none"} />
+      <WishlistButton id={id} />
     </div>
   )
 }
