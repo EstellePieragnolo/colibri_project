@@ -1,11 +1,14 @@
 import styled from 'styled-components';
-import BookSelection from './components/BookSelection';
 import { TVolumeInfo } from './types';
 import { Provider } from 'react-redux'
-import { store } from './redux/store'
+import { RootState, store } from './redux/store'
 import { getBookSelection } from './components/BookSelection/BookSelectionSlice';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
+import BookSelection from './components/BookSelection/BookSelection';
+import { WishlistContext } from './contexts/wishlistContext';
+import { toggleWishlist } from './components/Wishlist/WishlistSlice';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -19,22 +22,31 @@ const App = () => {
     initApp()
   }, []);
 
+  const dispatchToggleWishlistItem = (id: string) => {
+    dispatch(toggleWishlist(id))
+  }
+
+  const { wishlist } = useAppSelector(state => state.wishlist)
   const { books } = useAppSelector(state => state.bookSelection)
+
   return (
     <Section className="App" >
       <AppTitle>Welcome to Colibri Project</AppTitle>
       <AppSubtitle>Our book selection</AppSubtitle>
       <CategoryTitle>{"Medieval"}</CategoryTitle>
-      <BooksContainer>
-        {books?.map((bookInfo: TVolumeInfo, i: Number) => {
-          return (
-            <div key={`book-${i}`}>
-              <BookSelection {...bookInfo} />
-            </div>
-          )
-        })
-        }
-      </BooksContainer>
+      {/* TODO pass wishlist to context */}
+      <WishlistContext.Provider value={{ toggleWishlistItem: dispatchToggleWishlistItem, wishlist: wishlist }}>
+        <BooksContainer>
+          {books?.map((bookInfo: TVolumeInfo, i: Number) => {
+            return (
+              <div key={`book-${i}`}>
+                <BookSelection {...bookInfo} />
+              </div>
+            )
+          })
+          }
+        </BooksContainer>
+      </WishlistContext.Provider>
     </Section>
   );
 }
