@@ -26,14 +26,7 @@ const App = () => {
     dispatch(toggleWishlist(id))
   }
 
-  const isInWishlist = () => {
-    let inWishlist: string[] = []
-    useSelector((state: RootState) => state.wishlist.wishlist.map((wishlistItem) => {
-      inWishlist = [...inWishlist, wishlistItem.id]
-    }))
-    return inWishlist
-  }
-
+  const { wishlist } = useAppSelector(state => state.wishlist)
   const { books } = useAppSelector(state => state.bookSelection)
 
   return (
@@ -42,7 +35,7 @@ const App = () => {
       <AppSubtitle>Our book selection</AppSubtitle>
       <CategoryTitle>{"Medieval"}</CategoryTitle>
       {/* TODO pass wishlist to context */}
-      <WishlistContext.Provider value={{ toggleWishlistItem: dispatchToggleWishlistItem, wishlist: isInWishlist }}>
+      <WishlistContext.Provider value={{ toggleWishlistItem: dispatchToggleWishlistItem, wishlist: wishlist }}>
         <BooksContainer>
           {books?.map((bookInfo: TVolumeInfo, i: Number) => {
             return (

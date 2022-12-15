@@ -1,7 +1,8 @@
 import { createContext } from "react";
+import { TBookId } from "../types";
 
 type TWishlistContext = {
-  wishlist?: () => string[]
+  wishlist?: TBookId[]
   toggleWishlistItem?: (id: string) => void
 }
 
