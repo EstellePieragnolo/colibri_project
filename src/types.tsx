@@ -2,6 +2,7 @@ export type TVolumeInfo = {
   authors: [string]
   categories: [string]
   description: string
+  id: string
   imageLinks: TImageLinks
   industryIdentifiers: [{
     type: string,
@@ -17,4 +18,8 @@ export type TVolumeInfo = {
 export type TImageLinks = {
   smallThumbnail: string
   thumbnail: string
+}
+
+export type TBookId = {
+  id: string
 }

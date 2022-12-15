@@ -16,7 +16,7 @@ const homeData = async (category: string) => {
       }
       const apiResult = await response.json();
       if (apiResult && apiResult?.items?.length) {
-        apiResult.items.forEach((item: { volumeInfo: TVolumeInfo }) => {
+        apiResult.items.forEach((item: { volumeInfo: TVolumeInfo } & TVolumeInfo) => {
           const info = item.volumeInfo
           data.push({
             authors: info.authors,
@@ -30,6 +30,7 @@ const homeData = async (category: string) => {
             publishedDate: info.publishedDate,
             publisher: info.publisher,
             title: info.title,
+            id: item.id
           })
         })
       }
