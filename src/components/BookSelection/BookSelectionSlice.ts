@@ -51,4 +51,4 @@ export const bookSelectionSlice = createSlice({
   }
 })
 
-export default bookSelectionSlice.reducer
+export const bookSelectionReducer = bookSelectionSlice.reducer
