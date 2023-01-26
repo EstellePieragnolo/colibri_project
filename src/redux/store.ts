@@ -1,10 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
-import bookReducer from '../components/BookSelection/BookSelectionSlice'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { bookSelectionReducer } from '../components/BookSelection/BookSelectionSlice'
 import { wishlistReducer } from '../components/Wishlist/WishlistSlice'
 
+//create an object to combine reducers
 export const store = configureStore({
   reducer: {
-    bookSelection: bookReducer,
+    bookSelection: bookSelectionReducer,
     wishlist: wishlistReducer
   },
 })

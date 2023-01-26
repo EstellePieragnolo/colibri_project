@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { TVolumeInfo } from './types';
 import { Provider } from 'react-redux'
-import { RootState, store } from './redux/store'
+import { store } from './redux/store'
 import { getBookSelection } from './components/BookSelection/BookSelectionSlice';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import BookSelection from './components/BookSelection/BookSelection';
 import { WishlistContext } from './contexts/wishlistContext';
 import { toggleWishlist } from './components/Wishlist/WishlistSlice';
-import { useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useAppDispatch()
